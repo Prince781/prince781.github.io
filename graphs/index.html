@@ -18,6 +18,37 @@ function t_getSalaries(teachers) {
 		tsalaries.push(teachers[i].salary);
 	return tsalaries;
 }
+function t_getYears(teachers) {
+	var tyears = [];
+	for (var i=0; i<teachers.length; i++)
+		tyears.push(teachers[i].years);
+	return tyears;
+}
+/** approximate best fit of α and β for y=βx+α **/
+function linear_regression(x_data, y_data, min_a, max_a, incr_a, min_B, max_B, incr_B) {
+	// incr -> how much to increment B for testing
+	// x, y data 
+	var models = [];
+	for (var a=min_a; a<=max_a; a+=incr_a) {
+		for (var b=min_B; b<=max_B; b+=incr_B) { // tweak our slope incrementally
+			var sum = 0; // contains sum of squared "residuals": (y_i - a - B*x_i)^2
+			for (var i=0; i<x_data.length; i++) { // loop through our set
+				if (isNaN(x_data[i]) || isNaN(y_data[i])) continue;
+				sum += Math.pow(y_data[i] - a - b*x_data[i], 2);
+			}
+			models.push({
+				a: a,
+				B: parseFloat(b).toFixed(4),
+				S: sum
+			});
+		}
+	}
+	
+	// get model with minimum sum S
+	models.sort(function(m1,m2) { return m1.S - m2.S; });
+	
+	return models[0];
+}
 window.onload = function() {
 	var teachers = [];
 	parse_csv("res/bca.csv", function(data) { teachers = data }); // not async
@@ -40,29 +71,20 @@ window.onload = function() {
 				}
 			]
 		},
-		{
+		{ // options
 			scaleFontSize: 10
 		}
 	);
 	
 	// get highest paid
+	var t_topnn = teachers.slice(0), topn = 8;
+	t_topnn.sort(function(t1,t2) {
+		return t2.salary - t1.salary;
+	});
 	var t_topn = [];
-	var blacklist = {};
-	for (var i=0; t_topn.length<8;) {
-		var biggest = true;
-		for (var s=0; s<teachers.length; s++) {
-			if (s==i || s in blacklist) continue;
-			if (teachers[s].salary > teachers[i].salary) {
-				i = s;
-				biggest = false;
-			}
-		}
-		if (biggest) {
-			t_topn.push(teachers[i]);
-			blacklist[i] = true;
-			for (i=0; i in blacklist; i++);
-		}
-	}
+	for (var t=0; t<topn; t++)
+		t_topn.push(t_topnn[t]);
+	
 	ctx = document.getElementById("topn_graph").getContext("2d");
 	new Chart(ctx).Bar(
 		{ // data
@@ -75,13 +97,13 @@ window.onload = function() {
 				}
 			]
 		},
-		{
+		{ // options
 			scaleFontSize: 10
 		}
 	);
 	
 	
-	// get avg of salary / num of classes taught
+	// get avg of salary / num of classes taught  (index of compensation)
 	var ioc_n = teachers.length;
 	var ssum = 0, salOnum = [];
 	for (var i=0; i<ioc_n; i++) {
@@ -107,7 +129,7 @@ window.onload = function() {
 					pointFillColor: "rgba(192,32,41,0.4)",
 					pointStrokeColor: "rgba(192,32,41,0.4)",
 					fillColor: "rgba(0,0,0,0)",
-					strokeColor: "rgba(0,0,0,0",
+					strokeColor: "rgba(0,0,0,0)",
 					data: ioc
 				},
 				{
@@ -119,10 +141,98 @@ window.onload = function() {
 				}
 			]
 		},
-		{
+		{ // options
 			scaleFontSize: 10
 		}
 	);
+	
+	// tenure and salary
+	var years = [], years_s = []; // years and avg salary for year
+	var yamts = []; // number of data points at years[n]
+	for (var i=0; i<teachers.length; i++) {
+		var yrs = teachers[i].years;
+		years[yrs] = yrs;
+		if (typeof yamts[yrs] == "undefined") {
+			yamts[yrs] = 1;
+			years_s[yrs] = 0;
+		} else yamts[yrs]++;
+		years_s[yrs] += teachers[i].salary;
+	}
+	
+	for (var i=0; i<years.length; i++) {
+		years[i] = i;
+		years_s[i] /= yamts[i];
+	}
+	
+	// perform linear regression on data
+	var ts_lrdata = { x: years.slice(0), y: years_s.slice(0) };
+	for (var s=0; s<ts_lrdata.y.length; s++)
+		ts_lrdata.y[s] /= 1000; // damp calculations
+		
+	var rModel = linear_regression(ts_lrdata.x, ts_lrdata.y, // x, y data
+		ts_lrdata.y[0], ts_lrdata.y[ts_lrdata.y.length-1], 0.5,  // min_a, max_a, incr_a
+		-1, 200, 0.1 // min_B, max_B, incr_B
+	);
+	
+	var equation = {
+		m: rModel.B*1000,
+		b: rModel.a*1000
+	};
+	
+	var ts_lr_line = [];
+	for (var t=0; t<years.length; t++)
+		ts_lr_line[t] = equation.b + equation.m * t;
+	
+	document.getElementById("tys_eq").innerHTML = "s = "+equation.m+"y + "+equation.b;
+	
+	ctx = document.getElementById("tys_graph").getContext("2d");
+	new Chart(ctx).Line(
+		{ // data
+			labels: years,
+			datasets: [
+				{
+					fillColor: "rgba(220,220,220,0.5)",
+					strokeColor: "rgba(220,220,220,0.7)",
+					pointColor: "rgba(220,220,220,0.8)",
+					pointStrokeColor: "#fff",
+					data: years_s
+				},
+				{
+					fillColor: "rgba(220,220,220,0)",
+					strokeColor: "rgba(220,80,220,0.5)",
+					pointColor: "rgba(220,220,220,0)",
+					pointStrokeColor: "rgba(0,0,0,0)",
+					data: ts_lr_line
+				}
+			]
+		},
+		{ // options
+			scaleFontSize: 10
+		}
+	);
+	
+	var toptenuredn = teachers.slice(0), ttn = 8;
+	toptenuredn.sort(function(t1,t2) { return t2.years - t1.years; });
+	toptenuredn = toptenuredn.slice(0, ttn);
+	var ttn_years = t_getYears(toptenuredn),
+		ttn_names = t_getNames(toptenuredn);
+	
+	ctx = document.getElementById("toptenured_graph").getContext("2d");
+	new Chart(ctx).Bar(
+		{ // data
+			labels: ttn_names,
+			datasets: [
+				{
+					fillColor: "rgba(176,112,55,0.4)",
+					strokeColor: "rgba(176,112,32,0.4)",
+					data: ttn_years
+				}
+			]
+		},
+		{ // options
+			scaleFontSize: 10
+		}
+	);	
 };
 </script>
 </head>
@@ -160,6 +270,32 @@ window.onload = function() {
 			<canvas id="ioc_graph" width="2000" height="400">
 				HTML5 canvas is not supported in your browser
 			</div>
+		</div>
+	</div>
+	
+	<div class="g_advance"></div>
+	
+	<div class="graphic_section">
+		<h3 class="mh3">Relationship Between Tenured Years and Average Salary, 2012-2013</h3>
+		<div class="description">
+			Average salary <b>s</b> per instance of <b>y</b> tenured years.
+			Linear regression <b id="tys_eq"></b>
+		</div>
+		<div class="graph_holder">
+			<canvas id="tys_graph" width="800" height="400">
+				HTML5 canvas is not supported in your browser
+			</canvas>
+		</div>
+	</div>
+	
+	<div class="g_advance"></div>
+	
+	<div class="graphic_section">
+		<h3 class="mh3">Top Eight Longest-Serving Faculty Members by Years, 2012-2013</h3>
+		<div class="graph_holder">
+			<canvas id="toptenured_graph" width="800" height="400">
+				HTML5 canvas is not supported in your browser
+			</canvas>
 		</div>
 	</div>
 </div>
