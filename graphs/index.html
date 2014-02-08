@@ -80,11 +80,14 @@ window.onload = function() {
 		}
 	);
 	
+	
 	// get avg of salary / num of classes taught
 	var ioc_n = teachers.length;
 	var ssum = 0, salOnum = [];
 	for (var i=0; i<ioc_n; i++) {
-		salOnum[i] = teachers[i].salary;
+		var numclasses = (!isNaN(teachers[i].numclasses) && teachers[i].numclasses != 0)
+							? teachers[i].numclasses : 1;
+		salOnum[i] = teachers[i].salary / numclasses;
 		ssum += salOnum[i];
 	}
 	var avg = ssum / ioc_n;
