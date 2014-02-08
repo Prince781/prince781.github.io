@@ -88,6 +88,17 @@ h3.mh3 {
 	overflow-x: auto;
 }
 
+.description {
+	width: 700px;
+	min-height: 10px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: italic;
+	color: #484848;
+	margin: 0px auto 10px auto;
+	text-align: center;
+}
+
 canvas#salaries_graph {
 	background-color: white;
 	box-shadow: 0px 0px 15px white;

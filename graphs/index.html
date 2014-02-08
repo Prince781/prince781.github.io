@@ -93,6 +93,8 @@ window.onload = function() {
 	for (var i=0; i<salOnum.length; i++)
 		ioc[i] = salOnum[i] / avg;
 	
+	var ioc_line = [];
+	for (var i=0; i<ioc.length; ioc_line[i++] = 1);
 	ctx = document.getElementById("ioc_graph").getContext("2d");
 	new Chart(ctx).Line(
 		{ // data
@@ -104,6 +106,13 @@ window.onload = function() {
 					fillColor: "rgba(0,0,0,0)",
 					strokeColor: "rgba(0,0,0,0",
 					data: ioc
+				},
+				{
+					pointFillColor: "rgba(192,32,41,0)",
+					pointStrokeColor: "rgba(192,32,41,0)",
+					fillColor: "rgba(0,0,0,0)",
+					strokeColor: "rgba(92,112,21,0.2)",
+					data: ioc_line
 				}
 			]
 		},
@@ -141,6 +150,9 @@ window.onload = function() {
 	
 	<div class="graphic_section">
 		<h3 class="mh3">Salary/Number of Classes to Average, 2012-2013</h3>
+		<div class="description">
+			Coefficients &lt;1 or &gt;1 indicate either a disproportionately <b>low</b> or <b>high</b> compensation per number of classes taught.
+		</div>
 		<div class="graph_holder">
 			<canvas id="ioc_graph" width="2000" height="400">
 				HTML5 canvas is not supported in your browser
