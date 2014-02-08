@@ -14,7 +14,7 @@ function parse_csv(location, func) {
 		var text = ajax.responseText;
 		var lines = text.split("\n");
 		var rlines = [];
-		for (var l=1; l<lines.length; l++)
+		for (var l=1; l<lines.length-1; l++)
 			rlines[l-1] = lines[l].split(",");
 		var columns = lines[0].split(","); // column names
 		var rows = [];
@@ -22,8 +22,10 @@ function parse_csv(location, func) {
 		// split data into rows
 		for (var r=0; r<rlines.length; r++) {
 			rows[r] = {};
-			for (var i=0; i<columns.length; i++)
-				rows[r][columns[i].toLowerCase()] = rlines[r][i];
+			for (var i=0; i<columns.length; i++) {
+				columns[i] = columns[i].replace(/[\W]+/g, "").toLowerCase();
+				rows[r][columns[i]] = rlines[r][i];
+			}
 		}
 		
 		func(rows); // call our function with passed information

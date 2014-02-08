@@ -1,4 +1,4 @@
-Last,First,Years,Salary,Job,Classes
+Last,First,Years,Salary,Job,NumClasses
 BEIDEMAN,AMY ROSE,1,49807,Math Non-Elementary,4 
 FINLEY,PATRICK D,23,102535,Music Comprehensive,12 
 GUTHRIE,PETER,9,86980,Computer Technology,9 
@@ -105,4 +105,4 @@ GALITSKIY,EMMANUIL,21,105465,Science Physics,7 
 SAMARAKONE,VICTOR,9,75221,Computer Technology,11 
 OLEKSY,FRANK,7,102010,Science Physics,9 
 CONTENTE,MICHAEL E,5,102010,Math Non-Elementary,6 
-CARERI,MARIA,24,128371,Director Athletics,4 
+CARERI,MARIA,24,128371,Director Athletics,4

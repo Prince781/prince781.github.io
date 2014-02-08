@@ -6,9 +6,9 @@
 <script type="text/javascript" src="chart.js"></script>
 <script type="text/javascript" src="parse-data.js"></script>
 <script type="text/javascript">
-function t_getNames(teachers) {
+function t_getNames(teachers, limit) {
 	var tnames = [];
-	for (var i=0; i<teachers.length; i++)
+	for (var i=0; i<(limit != null ? limit : teachers.length); i++)
 		tnames.push(teachers[i].first.charAt(0)+". "+ teachers[i].last);
 	return tnames;
 }
@@ -21,8 +21,12 @@ function t_getSalaries(teachers) {
 window.onload = function() {
 	var teachers = [];
 	parse_csv("res/bca.csv", function(data) { teachers = data }); // not async
-	for (var t=0; t<teachers.length; t++)
+	
+	for (var t=0; t<teachers.length; t++) {
 		teachers[t].salary = parseInt(teachers[t].salary);
+		teachers[t].years = parseInt(teachers[t].years);
+		teachers[t].numclasses = parseInt(teachers[t].numclasses);
+	}
 	
 	var ctx = document.getElementById("salaries_graph").getContext("2d");
 	new Chart(ctx).Bar(
@@ -65,9 +69,41 @@ window.onload = function() {
 			labels: t_getNames(t_topn),
 			datasets: [
 				{
-					fillColor: "rgba(32,132,141,0.4)",
-					strokeColor: "rgba(32,132,141,0.4)",
+					fillColor: "rgba(132,32,141,0.4)",
+					strokeColor: "rgba(132,32,141,0.4)",
 					data: t_getSalaries(t_topn)
+				}
+			]
+		},
+		{
+			scaleFontSize: 10
+		}
+	);
+	
+	// get avg of salary / num of classes taught
+	var ioc_n = teachers.length;
+	var ssum = 0, salOnum = [];
+	for (var i=0; i<ioc_n; i++) {
+		salOnum[i] = teachers[i].salary;
+		ssum += salOnum[i];
+	}
+	var avg = ssum / ioc_n;
+	
+	var ioc = []; // indices of compensation (ratio to average)
+	for (var i=0; i<salOnum.length; i++)
+		ioc[i] = salOnum[i] / avg;
+	
+	ctx = document.getElementById("ioc_graph").getContext("2d");
+	new Chart(ctx).Line(
+		{ // data
+			labels: t_getNames(teachers, ioc_n),
+			datasets: [
+				{
+					pointFillColor: "rgba(192,32,41,0.4)",
+					pointStrokeColor: "rgba(192,32,41,0.4)",
+					fillColor: "rgba(0,0,0,0)",
+					strokeColor: "rgba(0,0,0,0",
+					data: ioc
 				}
 			]
 		},
@@ -93,9 +129,20 @@ window.onload = function() {
 	<div class="g_advance"></div>
 	
 	<div class="graphic_section">
-		<h3 class="mh3">Top Eight Highest-Paid Teachers, 2012-2013</h3>
+		<h3 class="mh3">Top Eight Highest-Paid Faculty Members, 2012-2013</h3>
 		<div class="graph_holder">
 			<canvas id="topn_graph" width="700" height="400">
+				HTML5 canvas is not supported in your browser
+			</div>
+		</div>
+	</div>
+	
+	<div class="g_advance"></div>
+	
+	<div class="graphic_section">
+		<h3 class="mh3">Salary/Number of Classes to Average, 2012-2013</h3>
+		<div class="graph_holder">
+			<canvas id="ioc_graph" width="2000" height="400">
 				HTML5 canvas is not supported in your browser
 			</div>
 		</div>
