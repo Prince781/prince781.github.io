@@ -1,0 +1,108 @@
+/* index.css */
+
+html, body {
+	padding: 0px;
+	margin: 0px;
+}
+
+body {
+	background-color: #e9e9e9;
+	margin-bottom: 40px;
+}
+
+a:link, a:active, a:visited {
+	color: #58afc3;
+	text-decoration: none;
+	transition: color 700ms;
+	-webkit-transition: color 700ms;
+	-o-transition: color 700ms;
+}
+
+a:hover {
+	color: #287fa3;
+	text-decoration: underline;
+}
+
+#main_holder {
+	width: 1000px;
+	min-height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1.mh1, h2.mh2, h3.mh3, h4.mh4 {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-weight: bold;
+	text-align: center;
+}
+
+h1.mh1 {
+	font-size: 48px;
+	color: #4f4f4f;
+	text-shadow: 0px 1px 0px #fff;
+}
+
+h2.mh2 {
+	font-size: 36px;
+	color: #5f5f5f;
+}
+
+h3.mh3 {
+	font-size: 24px;
+	color: #6f6f6f;
+	text-shadow: 0px 0px 5px #f9f9f9;
+}
+
+.g_advance {
+	/* section arrow */
+	width: 80px;
+	height: 80px;
+	position: relative;
+	margin: 40px auto 40px auto;
+	background-color: #dfdfdf;
+	border-radius: 50px;
+	border: 1px solid #c2c2c2;
+	box-shadow: inset 0px 1px 0px #e3e3e3;
+}
+
+.graphic_section {
+	position: relative;
+	margin: 40px auto 40px auto;
+	width: 700px;
+	min-height: 200px;
+	background-color: #fbfbfb;
+	border-radius: 7px;
+	border: 1px solid #b0b0b0;
+	box-shadow: 0px 0px 15px #afafaf;
+	padding: 10px;
+}
+
+.graphic_section > h3 {
+	margin-top: 10px;
+}
+
+.graph_holder {
+	position: relative;
+	width: 100%;
+	min-height: 10px;
+	overflow-x: auto;
+}
+
+canvas#salaries_graph {
+	background-color: white;
+	box-shadow: 0px 0px 15px white;
+}
+
+#main_bottom {
+	width: 200px;
+	height: 12px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 12px;
+	color: #444;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding: 10px;
+	border-radius: 5px;
+	text-shadow: 0px 1px 0px #fff;
+}

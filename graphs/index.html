@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>BCA - Teacher Salaries</title>
+<link rel="StyleSheet" type="text/css" href="index.css">
+<script type="text/javascript" src="chart.js"></script>
+<script type="text/javascript" src="parse-data.js"></script>
+<script type="text/javascript">
+function t_getNames(teachers) {
+	var tnames = [];
+	for (var i=0; i<teachers.length; i++)
+		tnames.push(teachers[i].first.charAt(0)+". "+ teachers[i].last);
+	return tnames;
+}
+function t_getSalaries(teachers) {
+	var tsalaries = [];
+	for (var i=0; i<teachers.length; i++)
+		tsalaries.push(teachers[i].salary);
+	return tsalaries;
+}
+window.onload = function() {
+	var teachers = [];
+	parse_csv("res/bca.csv", function(data) { teachers = data }); // not async
+	for (var t=0; t<teachers.length; t++)
+		teachers[t].salary = parseInt(teachers[t].salary);
+	
+	var ctx = document.getElementById("salaries_graph").getContext("2d");
+	new Chart(ctx).Bar(
+		{ // data
+			labels: t_getNames(teachers),
+			datasets: [
+				{
+					fillColor: "rgba(32,132,141,0.4)",
+					strokeColor: "rgba(32,132,141,0.4)",
+					data: t_getSalaries(teachers)
+				}
+			]
+		},
+		{
+			scaleFontSize: 10
+		}
+	);
+	
+	// get highest paid
+	var t_topn = [];
+	var blacklist = {};
+	for (var i=0; t_topn.length<8;) {
+		var biggest = true;
+		for (var s=0; s<teachers.length; s++) {
+			if (s==i || s in blacklist) continue;
+			if (teachers[s].salary > teachers[i].salary) {
+				i = s;
+				biggest = false;
+			}
+		}
+		if (biggest) {
+			t_topn.push(teachers[i]);
+			blacklist[i] = true;
+			for (i=0; i in blacklist; i++);
+		}
+	}
+	ctx = document.getElementById("topn_graph").getContext("2d");
+	new Chart(ctx).Bar(
+		{ // data
+			labels: t_getNames(t_topn),
+			datasets: [
+				{
+					fillColor: "rgba(32,132,141,0.4)",
+					strokeColor: "rgba(32,132,141,0.4)",
+					data: t_getSalaries(t_topn)
+				}
+			]
+		},
+		{
+			scaleFontSize: 10
+		}
+	);
+};
+</script>
+</head>
+<body>
+<div id="main_holder">
+	<h1 class="mh1">Who makes the most money at Bergen County Academies?</h1>
+	<div class="graphic_section">
+		<h3 class="mh3">Yearly Teacher Salaries (USD), 2012-2013</h3>
+		<div class="graph_holder">
+			<canvas id="salaries_graph" width="3000" height="400">
+				HTML5 canvas is not supported in your browser
+			</canvas>
+		</div>
+	</div>
+	
+	<div class="g_advance"></div>
+	
+	<div class="graphic_section">
+		<h3 class="mh3">Top Eight Highest-Paid Teachers, 2012-2013</h3>
+		<div class="graph_holder">
+			<canvas id="topn_graph" width="700" height="400">
+				HTML5 canvas is not supported in your browser
+			</div>
+		</div>
+	</div>
+</div>
+<div id="main_bottom">
+	See the code on 
+		<a href="https://github.com/benwaffle/BCA-Salary-Analysis/">GitHub</a>
+</div>
+</body>
+</html>
