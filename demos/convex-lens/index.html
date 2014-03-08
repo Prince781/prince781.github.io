@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Convex Lens</title>
+<meta charset="utf8"/>
+<style type="text/css">
+html, body { margin: 0px; padding: 0px; }
+body {
+	background-color: #c8c8c8;
+}
+#main {
+	width: 800px;
+	height: 400px;
+	position: fixed;
+	display: block;
+	background-color: #fbfbfb;
+	top: 50%;
+	left: 50%;
+	margin-top: -215px;
+	margin-left: -415px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 15px #b0b0b0;
+	padding: 15px;
+}
+#main > canvas {
+	width: 100%;
+	height: 100%;
+	color: #789922;
+	font: 13px Arial;
+}
+
+svg#math {
+	display: block;
+	position: absolute;
+	top: 80px;
+	right: 20%;
+}
+</style>
+<script type="text/javascript">
+"use strict";
+function ctime() { return (new Date()).getTime(); }
+function clear(ctx) { ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); }
+
+window.onload = function() {
+	var ct = document.getElementById("mcanvas").getContext("2d"),
+		w = ct.canvas.width, h = ct.canvas.height,
+		pi = Math.PI, sin = Math.sin, cos = Math.cos, tan = Math.tan,
+		asin = Math.asin, acos = Math.acos, atan = Math.atan, abs = Math.abs,
+		f = 100, d_o = 2*f, h_o = 40,
+		d_i = d_o*f / (d_o - f), h_i = d_i/d_o * h_o;
+	
+	var stime = (new Date()).getTime(), animT = 5000;
+	
+	var colors = {
+		d_o: "#48f",
+		d_omf: "#c92", // d_o - f
+		d_i: "#f84",
+		h_o: "#3b5",
+		h_i: "#83b"
+	};
+	
+	ct.drawArc = function(x, y, r, t1, t2) {
+		this.arc(x, y, r, -t1, -t2, t1 < t2 & !(t1==-t2 & t2 < 0));
+	}
+	
+	setInterval(function() {
+		clear(ct);
+		ct.strokeStyle = "#444";
+		// draw line
+		ct.beginPath();
+		ct.moveTo(0.1*w, h/2 + 0.5);
+		ct.lineTo(0.9*w, h/2 + 0.5);
+		ct.stroke();
+		ct.strokeStyle = "#777";
+		// draw convex lens
+		ct.beginPath();
+		ct.drawArc(w/2 - cos(pi/4)*100, h/2, 100, pi/4, -pi/4);
+		ct.stroke();
+		ct.beginPath();
+		ct.drawArc(w/2 + cos(pi/4)*100, h/2, 100, 3/4*pi, 5/4*pi);
+		ct.stroke();
+		// label
+		ct.fillStyle = "#444";
+		ct.strokeStyle = "#222";
+		ct.font = "12px Arial";
+		ct.textAlign = "center";
+		for (var d = -2*f; d <= 2*f; d += !(d+f)*f + f) {
+			ct.beginPath();
+			ct.arc(w/2 + d, h/2 + 0.5, 2, 0, 2*pi);
+			ct.fill();
+			ct.strokeText(abs(d/f)==1 ? "F" : "C", w/2 + d, h/2 + 14.5);
+		}
+		// object
+		ct.strokeStyle = "#444";
+		var oldStroke = ct.strokeStyle;
+		ct.beginPath();
+		ct.strokeStyle = colors.h_o;
+		ct.moveTo(w/2+0.5 - d_o, h/2+0.5);
+		ct.lineTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
+		ct.stroke();
+		// arrow
+			ct.strokeStyle = oldStroke;
+			ct.beginPath();
+			ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
+			ct.lineTo(w/2+0.5-d_o - 5, h/2+0.5-h_o+5);
+			ct.moveTo(w/2+0.5 - d_o, h/2+0.5-h_o);
+			ct.lineTo(w/2+0.5-d_o + 5, h/2+0.5-h_o+5);
+			ct.stroke();
+		// image
+		ct.strokeStyle = colors.h_i;
+		ct.beginPath();
+		ct.moveTo(w/2+0.5 + d_i, h/2+0.5);
+		for (var y = 0; y < h_i; y += h_i/5) {
+			ct.lineTo(w/2+0.5 + d_i, h/2+0.5 + y);
+			ct.lineTo(w/2+0.5 + d_i, h/2+0.5 + y + h_i/10);
+			ct.stroke();
+			if (10*y/h_i != 1) ct.beginPath();
+		}
+		// arrow
+			ct.strokeStyle = oldStroke;
+			ct.beginPath();
+			ct.moveTo(w/2+0.5 + d_i, h/2+0.5+h_i);
+			ct.lineTo(w/2+0.5+d_i - 5, h/2+0.5+h_i-5);
+			ct.moveTo(w/2+0.5 + d_i, h/2+0.5+h_i);
+			ct.lineTo(w/2+0.5+d_i + 5, h/2+0.5+h_i-5);
+			ct.stroke();
+		// ray trace
+		ct.beginPath();
+		ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
+		ct.lineTo(w/2+0.5, h/2+0.5 - h_o);
+		ct.lineTo(w/2+0.5 + d_i + 4*f, h/2+0.5 + h_i + 4*h_o);
+		ct.stroke();
+		ct.beginPath();
+		ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
+		ct.lineTo(w/2+0.5 + 4*d_i, h/2+0.5 + 4*h_i);
+		ct.stroke();
+		// draw dimensions
+		ct.strokeStyle = colors.d_omf;
+		ct.beginPath();
+		ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
+		ct.lineTo(w/2+0.5 - f, h/2+0.5 - h_o);
+		ct.stroke();
+		ct.strokeStyle = colors.d_o;
+		ct.beginPath();
+		ct.moveTo(w/2+0.5 - d_o, h/2+0.5);
+		ct.lineTo(w/2+0.5, h/2+0.5);
+		ct.stroke();
+		ct.strokeStyle = colors.d_i;
+		ct.beginPath();
+		ct.moveTo(w/2+0.5, h/2+0.5);
+		ct.lineTo(w/2+0.5 + d_i, h/2+0.5);
+		ct.stroke();
+		// update calculations
+		d_o = 2*f + 0.9*f*sin(pi/2 * (ctime()-stime)/animT);
+		d_i = d_o*f / (d_o - f);
+		h_i = d_i/d_o * h_o;
+	}, 1);
+};
+</script>
+</head>
+<body>
+<div id="main">
+	<canvas id="mcanvas" width="800" height="400">
+		&gt;2014<br/>
+		&gt;not having a browser that supports HTML5
+	</canvas>
+	<svg id="math" width="115" height="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<image x="0" y="0" width="115" height="80" xlink:href="lens-equation.svg" />
+	</svg>
+</div>
+</body>
+</html>
