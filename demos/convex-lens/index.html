@@ -56,7 +56,8 @@ window.onload = function() {
 		d_omf: "#c92", // d_o - f
 		d_i: "#f84",
 		h_o: "#3b5",
-		h_i: "#83b"
+		h_i: "#83b",
+		virtual: "#d0d0d0"
 	};
 	
 	ct.drawArc = function(x, y, r, t1, t2) {
@@ -110,7 +111,7 @@ window.onload = function() {
 		ct.strokeStyle = colors.h_i;
 		ct.beginPath();
 		ct.moveTo(w/2+0.5 + d_i, h/2+0.5);
-		for (var y = 0; y < h_i; y += h_i/5) {
+		for (var y = 0; abs(y) < abs(h_i); y += h_i/5) {
 			ct.lineTo(w/2+0.5 + d_i, h/2+0.5 + y);
 			ct.lineTo(w/2+0.5 + d_i, h/2+0.5 + y + h_i/10);
 			ct.stroke();
@@ -120,38 +121,50 @@ window.onload = function() {
 			ct.strokeStyle = oldStroke;
 			ct.beginPath();
 			ct.moveTo(w/2+0.5 + d_i, h/2+0.5+h_i);
-			ct.lineTo(w/2+0.5+d_i - 5, h/2+0.5+h_i-5);
+			ct.lineTo(w/2+0.5+d_i - 5, h/2+0.5+h_i+(h_i<0?5:-5));
 			ct.moveTo(w/2+0.5 + d_i, h/2+0.5+h_i);
-			ct.lineTo(w/2+0.5+d_i + 5, h/2+0.5+h_i-5);
+			ct.lineTo(w/2+0.5+d_i + 5, h/2+0.5+h_i+(h_i<0?5:-5));
 			ct.stroke();
 		// ray trace
 		ct.beginPath();
 		ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
 		ct.lineTo(w/2+0.5, h/2+0.5 - h_o);
-		ct.lineTo(w/2+0.5 + d_i + 4*f, h/2+0.5 + h_i + 4*h_o);
+		ct.lineTo(w/2+0.5 + abs(d_i) + 4*f, h/2+0.5 + abs(h_i) + (d_i<0?2:4)*h_o);
 		ct.stroke();
 		ct.beginPath();
 		ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
-		ct.lineTo(w/2+0.5 + 4*d_i, h/2+0.5 + 4*h_i);
+		ct.lineTo(w/2+0.5 + 4*abs(d_i), h/2+0.5 + 4*abs(h_i));
 		ct.stroke();
+		// virtual ray trace
+		if (d_i < 0) {
+			ct.strokeStyle = colors.virtual;
+			ct.beginPath();
+			ct.moveTo(w/2+0.5, h/2+0.5 - h_o);
+			ct.lineTo(w/2+0.5 + d_i - 4*f, h/2+0.5 + h_i - 4*h_o);
+			ct.stroke();
+			ct.beginPath();
+			ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
+			ct.lineTo(w/2+0.5 + 4*d_i, h/2+0.5 + 4*h_i);
+			ct.stroke();
+		}
 		// draw dimensions
 		ct.strokeStyle = colors.d_omf;
 		ct.beginPath();
 		ct.moveTo(w/2+0.5 - d_o, h/2+0.5 - h_o);
 		ct.lineTo(w/2+0.5 - f, h/2+0.5 - h_o);
 		ct.stroke();
-		ct.strokeStyle = colors.d_o;
-		ct.beginPath();
-		ct.moveTo(w/2+0.5 - d_o, h/2+0.5);
-		ct.lineTo(w/2+0.5, h/2+0.5);
-		ct.stroke();
 		ct.strokeStyle = colors.d_i;
 		ct.beginPath();
 		ct.moveTo(w/2+0.5, h/2+0.5);
 		ct.lineTo(w/2+0.5 + d_i, h/2+0.5);
 		ct.stroke();
+		ct.strokeStyle = colors.d_o;
+		ct.beginPath();
+		ct.moveTo(w/2+0.5 - d_o, h/2+0.5);
+		ct.lineTo(w/2+0.5, h/2+0.5);
+		ct.stroke();
 		// update calculations
-		d_o = 2*f + 0.9*f*sin(pi/2 * (ctime()-stime)/animT);
+		d_o = 2*f + 1.5*f*sin(pi/2 * (ctime()-stime)/animT);
 		d_i = d_o*f / (d_o - f);
 		h_i = d_i/d_o * h_o;
 	}, 1);
