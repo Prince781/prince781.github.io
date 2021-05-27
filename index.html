@@ -1,13 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
-<title>Something to come...</title>
-<meta charset="utf8">
-<link rel="StyleSheet" type="text/css" href="index.css"/>
+<html><head>
+<meta charset="UTF-8">
+<style>
+@import url(http://fonts.googleapis.com/css?family=Vollkorn:400,400italic,700,700italic&subset=latin);
+
+img {
+	max-width: 100%;
+}
+
+table {
+	width: 100%;
+}
+
+table, th, td {
+	padding: 5px;
+}
+
+
+html, body {
+        padding:1em;
+        margin:auto;
+        max-width:48em;
+        background:#fefefe;
+	}
+body {
+	font: 1.3em "Vollkorn", Palatino, Times;
+	color: #333;
+	line-height: 1.4;
+	text-align: left;
+	}
+header, nav, article, footer {
+	width: 700px;
+	margin:0 auto;
+	}
+article {
+	margin-top: 4em;
+	margin-bottom: 4em;
+	min-height: 400px;
+	}
+footer {
+	margin-bottom:50px;
+	}
+video {
+	margin: 2em 0;
+	border:1px solid #ddd;
+	}
+
+nav {
+	font-size: .9em;
+	font-style: italic;
+	border-bottom: 1px solid #ddd;
+	padding: 1em 0;
+	}
+nav p {
+	margin: 0;
+	}
+
+/* Typography
+-------------------------------------------------------- */
+
+h1 {
+	margin-top: 0;
+	font-weight: normal;
+	}
+h2 {
+	font-weight: normal;
+	}
+h3 {
+	font-weight: normal;
+	font-style: italic;
+	margin-top:3em;
+	}
+p {
+	margin-top:0;
+	-webkit-hypens:auto;
+	-moz-hypens:auto;
+	hyphens:auto;
+	}
+ul {
+	list-style: square;
+	padding-left:1.2em;
+	}
+ol {
+	padding-left:1.2em;
+	}
+blockquote {
+	margin-left: 1em;
+	padding-left: 1em;
+	border-left: 1px solid #ddd;
+	}
+code {
+	font-family: "Consolas", "Menlo", "Monaco", monospace, serif;
+	font-size: .9em;
+	background: white;
+	}
+a {
+	color: #2484c1;
+	text-decoration: none;
+	}
+a:hover {
+	text-decoration: underline;
+	}
+a img {
+	border:none;
+	}
+h1 a, h1 a:hover {
+	color: #333;
+	text-decoration: none;
+	}
+hr {
+	color : #ddd;
+	height : 1px;
+	margin: 2em 0;
+	border-top : solid 1px #ddd;
+	border-bottom : none;
+	border-left: 0;
+	border-right: 0;
+	}
+p#heart{
+	font-size: 2em;
+	line-height: 1;
+	text-align: center;
+	color: #ccc;
+	}
+.red {
+	color:#B50000;
+	}
+
+/* Home Page
+--------------------------- */
+
+body#index li {
+	margin-bottom: 1em;
+	}
+
+
+/* iPad
+-------------------------------------------------------- */
+@media only screen and (max-device-width: 1024px) {
+body {
+	font-size: 120%;
+	line-height: 1.4;
+	}
+} /* @iPad */
+
+/* iPhone
+-------------------------------------------------------- */
+@media only screen and (max-device-width: 480px) {
+body {
+	text-align: left;
+	}
+article, footer {
+	width: auto;
+	}
+article {
+	padding: 0 10px;
+	}
+} /* @iPhone */
+
+
+</style>
 </head>
 <body>
-<div id="main">
-	<div><a href="https://github.com/Prince781">github</a></div>
-	<div><a href="demos/convex-lens">convex lens demo</a></div>
+<div class="document">
+<div class="header"></div><div class="inner">
+<h3 id="toc_0.1">Princeton Ferro</h3>
+
+<p><strong>Email</strong>: <a href="mailto:princetonferro@gmail.com?subject=This%20is%20from%20a%20bot%20change%20this%20subject%20if%20you%20are%20not%20a%20bot">princetonferro@gmail.com</a><br>
+<strong>GitHub</strong>: <a href="https://github.com/Prince781">https://github.com/Prince781</a><br>
+<strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/princeton-ferro/">https://www.linkedin.com/in/princeton-ferro/</a></p>
+
+<p>My interests are systems-related: compilers, languages, runtimes, and operating systems.</p>
+
+<h4 id="toc_0.1.1">Skills</h4>
+
+<p><strong>Languages</strong>: C, Python, C♯, TypeScript, Vala, C++, Java, Bash, LaTeX<br>
+<strong>Web</strong>: HTML5, CSS3, JavaScript, NodeJS, MongoDB, express.js, Pug, Angular, PHP, MySQL<br>
+<strong>Tools</strong>: gdb, vim, git, meson, make</p>
+
+<h4 id="toc_0.1.2">Institutions</h4>
+
+<p><strong>New York University (2019-present)</strong><br>
+Masters in Computer Science</p>
+
+<p><strong>University of Rochester (2015-2019)</strong><br>
+Bachelor of Science, Computer Science    </p>
+
+<p><strong>Bergen County Academies (2011-2015)</strong><br>
+High School degree</p>
+
+<h4 id="toc_0.1.3">Research</h4>
+
+<h5 id="toc_0.1.3.4">Managing Application Parallelism through Parallel Efficiency Regulation (2018-present)</h5>
+
+<ul dir="auto">
+<li>Poster: <a href="https://dl.acm.org/doi/10.1145/3293883.3301497">https://dl.acm.org/doi/10.1145/3293883.3301497</a></li>
+<li>A daemon that optimizes system resource allocation by monitoring per-application performance metrics (using hardware counters).</li>
+</ul>
+
+<h5 id="toc_0.1.3.4">Cache-Conscious Hash Array-Mapped Trie for Rust (2018)</h5>
+
+<ul dir="auto">
+<li>Source: <a href="https://github.com/chichunchen/concurrent-cache-conscious-hamt-in-rust">https://github.com/chichunchen/concurrent-cache-conscious-hamt-in-rust</a></li>
+<li>Alternative to <code>std::collections::HashMap</code> that uses a lock-free trie with a contiguous allocator for elements, improving scalability with multiple threads.</li>
+</ul>
+
+<h5 id="toc_0.1.3.4">Dynamic GPU Acceleration of Linear Algebra Computations (2017-present)</h5>
+
+<ul dir="auto">
+<li>Paper: <a href="http://prince781.net/unpublished/dyn_gpu_accel_lin_alg.pdf">http://prince781.net/unpublished/dyn_gpu_accel_lin_alg.pdf</a></li>
+<li>A drop-in replacement for BLAS and LAPACK that interops with cuBLAS or clBLAS to implement GPU acceleration in scientific applications.</li>
+</ul>
+
+<h4 id="toc_0.1.4">Work</h4>
+
+<h5 id="toc_0.1.4.4">L3Harris Technologies, Inc. (2020)</h5>
+
+<p><u>Intern - Space and Airborne Systems, Clifton, NJ</u><br>
+- Implemented a test framework in Python for flight and mission control software</p>
+
+<h5 id="toc_0.1.4.4">Cray Inc. (2019)</h5>
+
+<p><u>Compiler Software Intern, Bloomington, MN</u><br>
+- Improved OpenMP performance in Cray&#39;s clang+LLVM fork with optimizations for OpenMP fork/join<br>
+- Improved debugging support with Cray&#39;s OpenMP runtime <code>libcraymp</code></p>
+
+<h5 id="toc_0.1.4.4">BrightLogic (2014-2015, 2017)</h5>
+
+<p><u>Software Engineer Intern, Midland Park, NJ</u><br>
+- Developed a GUI for monitoring hardware state of the ActiveFloor (a floor with interactive panels)<br>
+- Created a ball tilt video game that ships with the ActiveFloor<br>
+- Created a centralized configuration manager for various software components, using Angular and C♯<br>
+- Created libraries and tools for ActiveFloor software<br>
+- Rapidly prototyped demo apps for the ActiveFloor to show to customers</p>
+
+<h4 id="toc_0.1.5">Teaching</h4>
+
+<h5 id="toc_0.1.5.4">Teacher&#39;s Assistant - Programming Language Design and Implementation (2018)</h5>
+
+<p><u>University of Rochester</u><br>
+- Drafted and graded assignments, tests, and quizzes. Held office hours with students.</p>
+
+<h4 id="toc_0.1.6">Open Source</h4>
+
+<h5 id="toc_0.1.6.4">Vala programming language</h5>
+
+<ul dir="auto">
+<li>I&#39;m the main developer of the Vala Language Server and work on tooling and support in the Vala compiler. I also contribute to the rest of the GNOME stack.</li>
+<li>Vala is a high-level programming language that compiles to C which then compiles to native code. It takes inspiration from C♯ and other languages. Vala has been used to write many high-quality applications for Linux and is used extensively by the <a href="https://elementary.io/">elementaryOS</a> and <a href="https://www.gnome.org/">GNOME</a> projects.</li>
+<li><a href="https://github.com/Prince781/vala-language-server/stargazers">Over 170 stars on the language server</a>, and <a href="https://marketplace.visualstudio.com/items?itemName=prince781.vala">over 5k installs of the VS Code plugin</a></li>
+</ul>
+</div>
 </div>
 </body>
 </html>
