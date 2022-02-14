@@ -14,17 +14,27 @@
 <strong>GitHub</strong>: <a href="https://github.com/Prince781">https://github.com/Prince781</a><br>
 <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/princeton-ferro/">https://www.linkedin.com/in/princeton-ferro/</a></p>
 
-<p>My interests are systems-related: compilers, languages, runtimes, and operating systems.</p>
+<h4 id="toc_0.1.1">Interests</h4>
 
-<h4 id="toc_0.1.1">Skills</h4>
+<p>compilers, languages, runtimes, toolchains, operating systems, parallel programming</p>
 
-<p><strong>Languages</strong>: C, Python, C♯, TypeScript, Vala, C++, Java, Bash, LaTeX<br>
-<strong>Web</strong>: HTML5, CSS3, JavaScript, NodeJS, MongoDB, express.js, Pug, Angular, PHP, MySQL<br>
-<strong>Tools</strong>: gdb, vim, git, meson, make</p>
+<h4 id="toc_0.1.2">Skills</h4>
 
-<h4 id="toc_0.1.2">Institutions</h4>
+<h5 id="toc_0.1.2.4">Languages</h5>
 
-<p><strong>New York University (2019-present)</strong><br>
+<ul dir="auto">
+<li>C, Python, Vala (great)</li>
+<li>C++, C#, JavaScript, TypeScript (good)</li>
+<li>Java (familiar with, but haven&#39;t touched in awhile)</li>
+</ul>
+
+<h5 id="toc_0.1.2.4">Tools</h5>
+
+<p><code>vim</code>, <code>gdb</code>, <code>rr</code>, <code>valgrind</code>, <code>perf</code>, <code>git</code>, <code>meson</code>, <code>make</code>  </p>
+
+<h4 id="toc_0.1.3">Institutions</h4>
+
+<p><strong>New York University (2019-2022)</strong><br>
 Masters in Computer Science</p>
 
 <p><strong>University of Rochester (2015-2019)</strong><br>
@@ -33,68 +43,104 @@ Bachelor of Science, Computer Science    </p>
 <p><strong>Bergen County Academies (2011-2015)</strong><br>
 High School diploma</p>
 
-<h4 id="toc_0.1.3">Research</h4>
+<h4 id="toc_0.1.4">Projects</h4>
 
-<h5 id="toc_0.1.3.4">Managing Application Parallelism through Parallel Efficiency Regulation (2018-present)</h5>
+<h5 id="toc_0.1.4.4">Vala</h5>
 
 <ul dir="auto">
-<li>Poster: <a href="https://dl.acm.org/doi/10.1145/3293883.3301497">https://dl.acm.org/doi/10.1145/3293883.3301497</a></li>
-<li>A daemon that optimizes system resource allocation by monitoring per-application performance metrics (using hardware counters).</li>
+<li>Vala is a high-level programming language that compiles to C which then
+compiles to native code. It takes inspiration from C# and other languages.
+Vala has been used to write many applications for Linux and is
+used extensively by the <a href="https://elementary.io/">elementaryOS</a> and
+<a href="https://www.gnome.org/">GNOME</a> projects/desktop environments.</li>
+<li>I&#39;m the main developer of the <a href="https://github.com/Prince781/vala-language-server">Vala Language
+Server</a>, as well as <a href="https://github.com/Prince781/valdo">a
+templating system for Vala projects</a>, and
+I <a href="https://gitlab.gnome.org/GNOME/vala/-/commits/master?author=Princeton%20Ferro">hack on the Vala compiler</a>.
+I also contribute a bit to the rest of the GNOME stack.</li>
+<li>Vala Language Server has <a href="https://github.com/Prince781/vala-language-server/stargazers">over 200 stars</a>,
+and the Visual Studio plugin has <a href="https://marketplace.visualstudio.com/items?itemName=prince781.vala">over 9k installs</a>.
+The language server is officially supported in <a href="https://wiki.gnome.org/Apps/Builder">GNOME Builder</a>, the official IDE of GNOME</li>
+</ul>
+
+<h5 id="toc_0.1.4.4">LSTF</h5>
+
+<ul dir="auto">
+<li>A domain-specific programming language for testing language servers. Still a work in progress.</li>
+<li>The language is based on JSON data types, with closures and asynchronous programming thrown in the mix.</li>
+<li>The implementation has an optimizing compiler, stack-based virtual machine, and language runtime.</li>
+<li>Source: <a href="https://github.com/Prince781/lstf">https://github.com/Prince781/lstf</a></li>
+</ul>
+
+<h5 id="toc_0.1.4.4">Cache-Conscious Hash Array-Mapped Trie for Rust (2018)</h5>
+
+<ul dir="auto">
+<li>Alternative to <code>std::collections::HashMap</code> that uses a lock-free trie with
+a contiguous allocator for elements, improving scalability with multiple
+threads.</li>
+<li>Source: <a href="https://github.com/chichunchen/concurrent-cache-conscious-hamt-in-rust">https://github.com/chichunchen/concurrent-cache-conscious-hamt-in-rust</a></li>
+</ul>
+
+<h5 id="toc_0.1.4.4">Dynamic GPU Acceleration of Linear Algebra Computations (2017-2019)</h5>
+
+<ul dir="auto">
+<li>A drop-in replacement for BLAS and LAPACK that interops with cuBLAS or clBLAS
+to implement GPU acceleration in scientific applications.</li>
+<li>Paper: <a href="http://prince781.net/files/dyn_gpu_accel_lin_alg.pdf">http://prince781.net/files/dyn_gpu_accel_lin_alg.pdf</a></li>
+</ul>
+
+<h4 id="toc_0.1.5">Research</h4>
+
+<h5 id="toc_0.1.5.4">Managing Application Parallelism through Parallel Efficiency Regulation (2018-2021)</h5>
+
+<ul dir="auto">
+<li>A daemon that optimizes system resource allocation by monitoring per-application performance metrics using hardware counters.</li>
+<li>Poster: <a href="https://prince781.net/files/mapper-ppopp-poster2019.pdf">https://prince781.net/files/mapper-ppopp-poster2019.pdf</a></li>
 <li>Source: <a href="https://github.com/URCS-systems/MAPPER/tree/release">https://github.com/URCS-systems/MAPPER/tree/release</a></li>
 </ul>
 
-<h5 id="toc_0.1.3.4">Cache-Conscious Hash Array-Mapped Trie for Rust (2018)</h5>
+<h4 id="toc_0.1.6">Employment</h4>
+
+<h5 id="toc_0.1.6.4"><a href="http://l3harris.com">L3Harris Technologies</a> (August - September 2020)</h5>
+
+<p><u>Intern - Space and Airborne Systems, Clifton, NJ</u>  </p>
 
 <ul dir="auto">
-<li>Source: <a href="https://github.com/chichunchen/concurrent-cache-conscious-hamt-in-rust">https://github.com/chichunchen/concurrent-cache-conscious-hamt-in-rust</a></li>
-<li>Alternative to <code>std::collections::HashMap</code> that uses a lock-free trie with a contiguous allocator for elements, improving scalability with multiple threads.</li>
+<li>Implemented a test framework in Python for flight and mission control software</li>
 </ul>
 
-<h5 id="toc_0.1.3.4">Dynamic GPU Acceleration of Linear Algebra Computations (2017-present)</h5>
+<h5 id="toc_0.1.6.4"><a href="http://cray.com">Cray (now HPE)</a> (May - August 2019)</h5>
+
+<p><u>Compiler Software Intern, Bloomington, MN</u>  </p>
 
 <ul dir="auto">
-<li>Paper: <a href="http://prince781.net/unpublished/dyn_gpu_accel_lin_alg.pdf">http://prince781.net/unpublished/dyn_gpu_accel_lin_alg.pdf</a></li>
-<li>A drop-in replacement for BLAS and LAPACK that interops with cuBLAS or clBLAS to implement GPU acceleration in scientific applications.</li>
+<li>Improved OpenMP performance in Cray&#39;s clang+LLVM fork with optimizations for OpenMP fork/join<br></li>
+<li>Improved debugging support with Cray&#39;s OpenMP runtime <code>libcraymp</code><br></li>
+<li>Poster: <a href="http://prince781.net/files/cray-poster.pdf">http://prince781.net/files/cray-poster.pdf</a></li>
 </ul>
 
-<h4 id="toc_0.1.4">Work</h4>
+<h5 id="toc_0.1.6.4"><a href="http://brightlogic.com">BrightLogic</a> (October 2014 - August 2015, June - August 2017)</h5>
 
-<h5 id="toc_0.1.4.4">L3Harris Technologies, Inc. (August 2020 - September 2020)</h5>
-
-<p><u>Intern - Space and Airborne Systems, Clifton, NJ</u><br>
-- Implemented a test framework in Python for flight and mission control software</p>
-
-<h5 id="toc_0.1.4.4">Cray Inc. (May 2019 - August 2019)</h5>
-
-<p><u>Compiler Software Intern, Bloomington, MN</u><br>
-- Improved OpenMP performance in Cray&#39;s clang+LLVM fork with optimizations for OpenMP fork/join<br>
-- Improved debugging support with Cray&#39;s OpenMP runtime <code>libcraymp</code></p>
-
-<h5 id="toc_0.1.4.4">BrightLogic (October 2014 - August 2015, June 2017 - August 2017)</h5>
-
-<p><u>Software Engineer Intern, Midland Park, NJ</u><br>
-- Developed a GUI for monitoring hardware state of the ActiveFloor (a floor with interactive panels)<br>
-- Created a ball tilt video game that ships with the ActiveFloor<br>
-- Created a centralized configuration manager for various software components, using Angular and C♯<br>
-- Created libraries and tools for ActiveFloor software<br>
-- Rapidly prototyped demo apps for the ActiveFloor to show to customers</p>
-
-<h4 id="toc_0.1.5">Teaching</h4>
-
-<h5 id="toc_0.1.5.4">Teacher&#39;s Assistant - Programming Language Design and Implementation (September 2018 - December 2018)</h5>
-
-<p><u>University of Rochester</u><br>
-- Drafted and graded assignments, tests, and quizzes. Held office hours with students.</p>
-
-<h4 id="toc_0.1.6">Open Source</h4>
-
-<h5 id="toc_0.1.6.4">Vala programming language</h5>
+<p><u>Software Engineer Intern, Midland Park, NJ</u>  </p>
 
 <ul dir="auto">
-<li>I&#39;m the main developer of the Vala Language Server and work on tooling and support in the Vala compiler. I also contribute to the rest of the GNOME stack.</li>
-<li>Vala is a high-level programming language that compiles to C which then compiles to native code. It takes inspiration from C♯ and other languages. Vala has been used to write many high-quality applications for Linux and is used extensively by the <a href="https://elementary.io/">elementaryOS</a> and <a href="https://www.gnome.org/">GNOME</a> projects.</li>
-<li><a href="https://github.com/Prince781/vala-language-server/stargazers">Over 200 stars on the language server</a>, and <a href="https://marketplace.visualstudio.com/items?itemName=prince781.vala">over 9k installs of the VS Code plugin</a></li>
+<li>Developed a GUI for monitoring hardware state of the ActiveFloor (a floor with interactive panels)<br></li>
+<li>Developed a <a href="https://www.youtube.com/watch?v=yJM4E6coUKY">video game</a> for the ActiveFloor</li>
+<li>Created a centralized configuration manager for various software components, using Angular and C#<br></li>
+<li>Created libraries and tools for ActiveFloor software<br></li>
+<li>Rapidly prototyped demo apps for the ActiveFloor to show to customers</li>
 </ul>
+
+<h4 id="toc_0.1.7">Teaching</h4>
+
+<h5 id="toc_0.1.7.4">Teacher&#39;s Assistant - Programming Language Design and Implementation (September 2018 - December 2018)</h5>
+
+<p><u>University of Rochester</u>  </p>
+
+<ul dir="auto">
+<li>Drafted and graded assignments, tests, and quizzes. Held office hours with students.</li>
+</ul>
+
 </div>
 </div>
 </body>
