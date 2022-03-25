@@ -64,6 +64,7 @@ High School diploma
 #### Managing Application Parallelism through Parallel Efficiency Regulation (2018-2021)
 - A daemon that optimizes system resource allocation by monitoring per-application performance metrics using hardware counters.
 - Poster: [https://prince781.net/files/mapper-ppopp-poster2019.pdf](https://prince781.net/files/mapper-ppopp-poster2019.pdf)
+- Paper: [https://prince781.net/files/mapper-taco2022.pdf](https://prince781.net/files/mapper-taco2022.pdf)
 - Source: [https://github.com/URCS-systems/MAPPER/tree/release](https://github.com/URCS-systems/MAPPER/tree/release)
 
 ### Employment
