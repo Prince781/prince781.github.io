@@ -34,11 +34,11 @@ High School diploma
   used extensively by the [elementaryOS](https://elementary.io/) and
   [GNOME](https://www.gnome.org/) projects/desktop environments.
 - I'm the main developer of the [Vala Language
-  Server](https://github.com/Prince781/vala-language-server), as well as [a
-  templating system for Vala projects](https://github.com/Prince781/valdo), and
+  Server](https://github.com/vala-lang/vala-language-server), as well as [a
+  templating system for Vala projects](https://github.com/vala-lang/valdo), and
   I [hack on the Vala compiler](https://gitlab.gnome.org/GNOME/vala/-/commits/master?author=Princeton%20Ferro).
   I also contribute a bit to the rest of the GNOME stack.
-- Vala Language Server has [over 200 stars](https://github.com/Prince781/vala-language-server/stargazers),
+- Vala Language Server has [over 200 stars](https://github.com/vala-lang/vala-language-server/stargazers),
   and the Visual Studio plugin has [over 9k installs](https://marketplace.visualstudio.com/items?itemName=prince781.vala).
   The language server is officially supported in [GNOME Builder](https://wiki.gnome.org/Apps/Builder), the official IDE of GNOME
 
@@ -68,6 +68,11 @@ High School diploma
 - Source: [https://github.com/URCS-systems/MAPPER/tree/release](https://github.com/URCS-systems/MAPPER/tree/release)
 
 ### Employment
+
+#### [NVIDIA](http://nvidia.com) (June 2022 - present)
+_Compiler Development Engineer - Remote / NJ / Santa Clara, CA_
+
+- Work on compiler optimizations for GPU compute (CUDA, OpenCL)
 
 #### [L3Harris Technologies](http://l3harris.com) (August - September 2020)    
 _Intern - Space and Airborne Systems, Clifton, NJ_  
